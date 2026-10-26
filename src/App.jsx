@@ -1,7 +1,7 @@
-import { Header } from "./components/Header";
-import { MarketList } from "./components/MarketList";
-import { PortfolioSummary } from "./components/PortfolioSummary";
-import { FAKE_PRICES } from "./data/fakePrices";
+import { Header } from './components/Header';
+import { MarketList } from './components/MarketList';
+import { PortfolioSummary } from './components/PortfolioSummary';
+import { FAKE_PRICES } from './data/fakePrices';
 
 function App() {
   return (

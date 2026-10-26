@@ -9,4 +9,4 @@ export const FAKE_PRICES = {
   ADABRL: { price: '1.0350', open: '1.0670' },
   LINKBRL: { price: '58.09', open: '59.61' },
   USDTBRL: { price: '5.0119', open: '5.0210' },
-}
+};

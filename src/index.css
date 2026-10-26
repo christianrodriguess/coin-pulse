@@ -1,8 +1,8 @@
-@import "tailwindcss";
-@import "@fontsource-variable/geist";
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
 
 @theme {
-  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
 
   --color-bg: oklch(0.165 0.006 260);
   --color-surface: oklch(0.205 0.007 260);
@@ -34,7 +34,7 @@
   }
 }
 
-[data-tone="down"] {
+[data-tone='down'] {
   --color-accent: var(--color-down);
 }
 

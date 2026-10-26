@@ -1,4 +1,4 @@
-import { formatBRL } from "../lib/format";
+import { formatBRL } from '../lib/format';
 
 export function PortfolioSummary() {
   return (
@@ -7,7 +7,7 @@ export function PortfolioSummary() {
         Sua carteira
       </h1>
       <p className="mt-1 text-4xl font-semibold tracking-tight tabular-nums sm:text-5xl">
-        {formatBRL("0")}
+        {formatBRL('0')}
       </p>
       <p className="mt-2 text-sm text-muted">
         Registre uma compra para acompanhar o resultado.
