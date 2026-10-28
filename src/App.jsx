@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import { AddPurchaseForm } from './components/AddPurchaseForm';
 import { PurchaseTable } from './components/PurchaseTable';
 import { Header } from './components/Header';
 import { MarketList } from './components/MarketList';
 import { PortfolioSummary } from './components/PortfolioSummary';
-import { FAKE_PRICES } from './data/fakePrices';
 import { DOLLAR_PAIR } from './data/coins';
 import { portfolioSummary } from './lib/money';
 import { sortPurchases } from './lib/purchases';
+import { useLivePrices } from './hooks/useLivePrices';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
-function App() {
-  const [purchases, setPurchases] = useState([]);
-  const prices = FAKE_PRICES;
+export default function App() {
+  const [purchases, setPurchases] = useLocalStorage('coinpulse:compras', []);
+  const { prices, status } = useLivePrices();
+
   const summary = portfolioSummary(purchases, prices);
+  const tone = summary.profit.lt(0) ? 'down' : 'up';
 
   function addPurchase(purchase) {
     setPurchases([...purchases, purchase]);
@@ -23,14 +25,14 @@ function App() {
   }
 
   return (
-    <div className="min-h-dvh bg-bg text-ink">
-      <Header />
+    <div data-tone={tone} className="min-h-dvh bg-bg text-ink">
+      <Header status={status} />
 
       <main className="mx-auto grid max-w-6xl grid-cols-1 gap-x-12 gap-y-10 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div>
           <PortfolioSummary
             summary={summary}
-            dollar={prices[DOLLAR_PAIR].price}
+            dollar={prices[DOLLAR_PAIR]?.price}
             hasPurchases={purchases.length > 0}
           />
           <section className="mt-10">
@@ -59,5 +61,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
