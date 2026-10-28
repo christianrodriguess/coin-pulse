@@ -28,7 +28,7 @@ export function portfolioSummary(purchases, prices){
     const profit = value.minus(cost);
     const percent = cost.gt(0) ? profit.div(cost).times(100) : new Big(0);
 
-    return ( cost, value, profit, percent );
+    return { cost, value, profit, percent };
 }
 
 export function dayChangePercent(live){

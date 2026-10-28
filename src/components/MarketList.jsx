@@ -24,7 +24,7 @@ export function MarketList({ prices }) {
               </span>
               <span className="text-sm tabular-nums">
                 <span className="tabular-nums">
-                  {live ? formatPrice(live.price) : '--'}
+                  {live ? formatPrice(live.price) : '—'}
                 </span>
                 {live && (
                   <Change
