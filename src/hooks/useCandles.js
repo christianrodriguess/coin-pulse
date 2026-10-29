@@ -25,5 +25,5 @@ export function useCandles(pair, range) {
     };
   }, [pair, range]);
 
-  return (candles, status);
+  return [candles, status];
 }

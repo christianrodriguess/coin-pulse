@@ -3,18 +3,24 @@ import { PurchaseTable } from './components/PurchaseTable';
 import { Header } from './components/Header';
 import { MarketList } from './components/MarketList';
 import { PortfolioSummary } from './components/PortfolioSummary';
-import { DOLLAR_PAIR } from './data/coins';
+import { DOLLAR_PAIR, findCoin } from './data/coins';
 import { portfolioSummary } from './lib/money';
 import { sortPurchases } from './lib/purchases';
 import { useLivePrices } from './hooks/useLivePrices';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useState } from 'react';
+import { PriceChart } from './components/PriceChart';
 
 export default function App() {
   const [purchases, setPurchases] = useLocalStorage('coinpulse:compras', []);
   const { prices, status } = useLivePrices();
+  const [selected, setSelected] = useState('BTC');
+  const [range, setRange] = useState('1D');
 
   const summary = portfolioSummary(purchases, prices);
   const tone = summary.profit.lt(0) ? 'down' : 'up';
+  const cryptoDollar = prices[DOLLAR_PAIR]?.price;
+  const coin = findCoin(selected);
 
   function addPurchase(purchase) {
     setPurchases([...purchases, purchase]);
@@ -32,8 +38,15 @@ export default function App() {
         <div>
           <PortfolioSummary
             summary={summary}
-            dollar={prices[DOLLAR_PAIR]?.price}
+            dollar={cryptoDollar}
             hasPurchases={purchases.length > 0}
+          />
+          <PriceChart
+            key={`${coin.pair}-${range}`}
+            coin={coin}
+            live={prices[coin.pair]}
+            range={range}
+            onRangeChange={setRange}
           />
           <section className="mt-10">
             <h2 className="font-medium">Suas Compras</h2>
@@ -54,7 +67,11 @@ export default function App() {
         </div>
 
         <aside className="self-start rounded-xl border border-line">
-          <MarketList prices={prices} />
+          <MarketList
+            prices={prices}
+            selected={selected}
+            onSelect={setSelected}
+          />
           <AddPurchaseForm prices={prices} onAdd={addPurchase} />
         </aside>
       </main>
